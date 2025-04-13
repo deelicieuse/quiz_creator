@@ -26,6 +26,10 @@ class QuizCreatorApp:
         self.question_entry = tk.Entry(main_frame, width=60)
         self.question_entry.grid(row=0, column=1, columnspan=3, sticky="w", padx=5, pady=5)
 
+        options_frame = tk.LabelFrame(main_frame, text="Options", padx=10, pady=10)
+        options_frame.grid(row=1, column=0, columnspan=4, padx=5, pady=10)
+
+
 if __name__ == "__main__":
     main_window = tk.Tk()
     quiz_app = QuizCreatorApp(main_window)
