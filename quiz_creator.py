@@ -9,7 +9,7 @@ class QuizCreatorApp:
         self.root_window.title("Quiz Creator")
 
         self.option_entries = {}
-        self.option_imagepaths = {}
+        self.option_image_paths = {}
         self.option_image_labels = {}
         self.cirrect_answer_variable = tk.StringVar
         self.option_keys = ["a", "b", "c", "d"]
@@ -36,6 +36,13 @@ class QuizCreatorApp:
             option_entry = tk.Entry(options_frame, width=40)
             option_entry.grid(row=index, column=1, padx=5, pady=5)
             self.option_entries[option_key] = option_entry
+
+            image_path = tk.StringVar()
+            self.option_image_paths[option_key] = image_path
+
+            image_label = tk.Label(option_entry, textvariable=image_path, fg="grey", wraplength=150)
+            image_label.grid(row=index, column=2, sticky="w", padx=5, pady=5)
+            self.option_image_labels[option_key] = image_label
 
 
 if __name__ == "__main__":
