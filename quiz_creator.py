@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import filedialog, messagebox
 import json
 import os
+from tkinter.messagebox import showerror
+
 
 class QuizCreatorApp:
     def __init__(self, root_window):
@@ -78,6 +80,18 @@ class QuizCreatorApp:
 
         if not file_path:
             return
+
+        try:
+            questions_list = [single_question_data]
+
+            with open(file_path, "w", encoding="utf-8") as file:
+                json.dump(questions_list, file, indent=4)
+
+            messagebox.showinfo("Success", f"Question saved successfully to\n{file_path}")
+            self.clear_form()
+
+        except Exception as error:
+            messagebox.showerror("Save Error", f"An wrror occured while saving: \n{error}")
 
         messagebox.showinfo("File Selected", f"Selected path: {file_path}")
 
