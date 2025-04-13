@@ -50,6 +50,13 @@ class QuizCreatorApp:
                 command=lambda key=option_key: self.upload_image(key)
             )
 
+        correct_label = tk.Label(main_frame, text="Correct Answer:", font=("Arial", 12))
+        correct_label.grid(row=2, column=0, sticky="w", padx=5, pady=10)
+
+        correct_dropdown = tk.OptionMenu(main_frame, self.correct_answer_variable, *self.option_keys)
+        correct_dropdown.grid(row=2, column=1, sticky="w", padx=5, pady=10)
+
+
     def upload_image(self, option_key):
         pass
 
