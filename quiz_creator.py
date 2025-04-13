@@ -4,7 +4,6 @@ import json
 import os
 from tkinter.messagebox import showerror
 
-
 class QuizCreatorApp:
     def __init__(self, root_window):
         self.root_window = root_window
@@ -119,7 +118,6 @@ class QuizCreatorApp:
             "answer": self.correct_answer_variable.get()
         }
 
-
         file_path = filedialog.asksaveasfilename(
             title="Save Quiz File",
             defaultextension=".json",
@@ -156,8 +154,6 @@ class QuizCreatorApp:
         messagebox.showinfo("File Selected", f"Selected path: {file_path}")
 
 
-
-
     def clear_form(self):
         self.question_entry.delete(0, tk.END)
         for key in self.option_keys:
@@ -165,7 +161,6 @@ class QuizCreatorApp:
             self.clear_image(key)
         self.correct_answer_variable.set(self.option_keys[0])
         self.question_entry.focus_set()
-
 
 
     def upload_image(self, option_key):
