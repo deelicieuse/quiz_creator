@@ -76,7 +76,19 @@ class QuizCreatorApp:
 
 
     def upload_image(self, option_key):
-        pass
+        file_path = filedialog.askopenfilename(
+            title=f"Select Image for Option {option_key.upper()}",
+            filetypess=[("Image Files", "*.png *.jpg *.jpeg *.gif"), ("All Files", ".")]
+        )
+        
+        if file_path:
+            file_name = os.path.basemame(file_path)
+            self.option_image_paths[option_key].set(file_path)
+            self.option_image_paths[option_key].confic(text=file_name)
+            messagebox.showinfo("Image Selected", f"Image '{file_name}' selected for Option {option_key.upper()}.")
+        else:
+            self.option_image_paths[option_key].set("")
+            self.option_image_labels[option_key].config(text="")
 
     def clear_image(self, option_key):
         pass
