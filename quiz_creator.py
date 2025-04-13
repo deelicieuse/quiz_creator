@@ -29,6 +29,14 @@ class QuizCreatorApp:
         options_frame = tk.LabelFrame(main_frame, text="Options", padx=10, pady=10)
         options_frame.grid(row=1, column=0, columnspan=4, padx=5, pady=10)
 
+        for index, option_key in enumerate(self.option_keys):
+            option_label = tk.Label(options_frame, text=f"Option {option_key.upper()} Text:", font=("Arial", 10))
+            option_label.grid(row=index, column=0, sticky="w", padx=5, pady=5)
+
+            option_entry = tk.Entry(options_frame, width=40)
+            option_entry.grid(row=index, column=1, padx=5, pady=5)
+            self.option_entries[option_key] = option_entry
+
 
 if __name__ == "__main__":
     main_window = tk.Tk()
