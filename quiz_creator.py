@@ -69,7 +69,18 @@ class QuizCreatorApp:
         exit_button.pack(side="left", padx=10)
 
     def save_question(self):
-        pass
+        file_path = filedialog.asksaveasfilename(
+            title="Save Quiz File",
+            defaultextension=".json",
+            filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")],
+            initialfile="quiz_data.json"
+        )
+
+        if not file_path:
+            return
+
+        messagebox.showinfo("File Selected", f"Selected path: {file_path}")
+
 
     def clear_form(self):
         self.question_entry.delete(0, tk.END)
