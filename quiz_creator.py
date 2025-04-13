@@ -20,6 +20,12 @@ class QuizCreatorApp:
         main_frame = tk.Frame(self.root_window, padx=10, pady=10)
         main_frame.grid(row=0, column=0)
 
+        question_label = tk.Label(main_frame, text="Enter your question:", font=("Arial", 12, "bold"))
+        question_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
+
+        self.question_entry = tk.Entry(main_frame, width=60)
+        self.question_entry.grid(row=0, column=1, columnspan=3, sticky="w", padx=5, pady=5)
+
 if __name__ == "__main__":
     main_window = tk.Tk()
     quiz_app = QuizCreatorApp(main_window)
