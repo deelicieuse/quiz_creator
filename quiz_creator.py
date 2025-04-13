@@ -91,7 +91,8 @@ class QuizCreatorApp:
             self.option_image_labels[option_key].config(text="")
 
     def clear_image(self, option_key):
-        pass
+        self.option_image_paths[option_key].set("")
+        self.option_image_labels[option_key].confic(text="")
 
 
 if __name__ == "__main__":
