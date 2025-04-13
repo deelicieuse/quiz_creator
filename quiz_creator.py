@@ -53,6 +53,13 @@ class QuizCreatorApp:
             )
             upload_button.grid(row=index, column=3, padx=5, pady=5)
 
+            clear_button = tk.Button(
+                options_frame,
+                text="Clear",
+                command=lambda key=option_key: self.clear_image(key)
+            )
+            clear_button.grid(row=index, column=4, padx=5, pady=5)
+
         correct_label = tk.Label(main_frame, text="Correct Answer:", font=("Arial", 12))
         correct_label.grid(row=2, column=0, sticky="w", padx=5, pady=10)
 
@@ -124,7 +131,7 @@ class QuizCreatorApp:
             else:
                 questions_list = []
 
-            questions_list = [single_question_data]
+            questions_list.append(single_question_data)
 
             with open(file_path, "w", encoding="utf-8") as file:
                 json.dump(questions_list, file, indent=4)
@@ -133,7 +140,7 @@ class QuizCreatorApp:
             self.clear_form()
 
         except Exception as error:
-            messagebox.showerror("Save Error", f"An wrror occured while saving: \n{error}")
+            messagebox.showerror("Save Error", f"An error occured while saving: \n{error}")
 
         messagebox.showinfo("File Selected", f"Selected path: {file_path}")
 
@@ -153,13 +160,13 @@ class QuizCreatorApp:
     def upload_image(self, option_key):
         file_path = filedialog.askopenfilename(
             title=f"Select Image for Option {option_key.upper()}",
-            filetypes=[("Image Files", "*.png *.jpg *.jpeg *.gif"), ("All Files", ".")]
+            filetypes=[("Image Files", "*.png *.jpg *.jpeg *.gif"), ("All Files", "*.*")]
         )
         
         if file_path:
             file_name = os.path.basename(file_path)
             self.option_image_paths[option_key].set(file_path)
-            self.option_image_paths[option_key].config(text=file_name)
+            self.option_image_labels[option_key].config(text=file_name)
             messagebox.showinfo("Image Selected", f"Image '{file_name}' selected for Option {option_key.upper()}.")
         else:
             self.option_image_paths[option_key].set("")
