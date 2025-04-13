@@ -13,7 +13,7 @@ class QuizCreatorApp:
         self.option_entries = {}
         self.option_image_paths = {}
         self.option_image_labels = {}
-        self.correct_answer_variable = tk.StringVar
+        self.correct_answer_variable = tk.StringVar(value="a")
         self.option_keys = ["a", "b", "c", "d"]
 
         self.create_widgets()
@@ -42,7 +42,7 @@ class QuizCreatorApp:
             image_path = tk.StringVar()
             self.option_image_paths[option_key] = image_path
 
-            image_label = tk.Label(option_entry, textvariable=image_path, fg="grey", wraplength=150)
+            image_label = tk.Label(options_frame, textvariable=image_path, fg="grey", wraplength=150)
             image_label.grid(row=index, column=2, sticky="w", padx=5, pady=5)
             self.option_image_labels[option_key] = image_label
 
@@ -51,6 +51,7 @@ class QuizCreatorApp:
                 text="Upload Image",
                 command=lambda key=option_key: self.upload_image(key)
             )
+            upload_button.grid(row=index, column=3, padx=5, pady=5)
 
         correct_label = tk.Label(main_frame, text="Correct Answer:", font=("Arial", 12))
         correct_label.grid(row=2, column=0, sticky="w", padx=5, pady=10)
@@ -122,13 +123,13 @@ class QuizCreatorApp:
     def upload_image(self, option_key):
         file_path = filedialog.askopenfilename(
             title=f"Select Image for Option {option_key.upper()}",
-            filetypess=[("Image Files", "*.png *.jpg *.jpeg *.gif"), ("All Files", ".")]
+            filetypes=[("Image Files", "*.png *.jpg *.jpeg *.gif"), ("All Files", ".")]
         )
         
         if file_path:
-            file_name = os.path.basemame(file_path)
+            file_name = os.path.basename(file_path)
             self.option_image_paths[option_key].set(file_path)
-            self.option_image_paths[option_key].confic(text=file_name)
+            self.option_image_paths[option_key].config(text=file_name)
             messagebox.showinfo("Image Selected", f"Image '{file_name}' selected for Option {option_key.upper()}.")
         else:
             self.option_image_paths[option_key].set("")
