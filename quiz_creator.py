@@ -11,7 +11,7 @@ class QuizCreatorApp:
         self.option_entries = {}
         self.option_image_paths = {}
         self.option_image_labels = {}
-        self.cirrect_answer_variable = tk.StringVar
+        self.correct_answer_variable = tk.StringVar
         self.option_keys = ["a", "b", "c", "d"]
 
         self.create_widgets()
@@ -43,6 +43,15 @@ class QuizCreatorApp:
             image_label = tk.Label(option_entry, textvariable=image_path, fg="grey", wraplength=150)
             image_label.grid(row=index, column=2, sticky="w", padx=5, pady=5)
             self.option_image_labels[option_key] = image_label
+
+            upload_button = tk.Button(
+                options_frame,
+                text="Upload Image",
+                command=lambda key=option_key: self.upload_image(key)
+            )
+
+    def upload_image(self, option_key):
+        pass
 
 
 if __name__ == "__main__":
