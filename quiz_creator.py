@@ -82,6 +82,17 @@ class QuizCreatorApp:
             return
 
         try:
+            if os.path.exists(file_path):
+                with open(file_path, "r", encoding="utf-8") as file:
+                    try:
+                        questions_list = json.load(file)
+                        if not isinstance(questions_list, list):
+                            raise ValueError("Existing file does not contain a list")
+                    except json.JSONDecodeError:
+                        questions_list = []
+            else:
+                questions_list = []
+
             questions_list = [single_question_data]
 
             with open(file_path, "w", encoding="utf-8") as file:
@@ -94,6 +105,8 @@ class QuizCreatorApp:
             messagebox.showerror("Save Error", f"An wrror occured while saving: \n{error}")
 
         messagebox.showinfo("File Selected", f"Selected path: {file_path}")
+
+
 
 
     def clear_form(self):
