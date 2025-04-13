@@ -72,7 +72,13 @@ class QuizCreatorApp:
         pass
 
     def clear_form(self):
-        pass
+        self.question_entry.delete(0, tk.END)
+        for key in self.option_keys:
+            self.option_entries[key].delete(0, tk.END)
+            self.clear_image(key)
+        self.correct_answer_variable.set(self.option_keys[0])
+        self.question_entry.focus_set()
+
 
 
     def upload_image(self, option_key):
@@ -92,7 +98,7 @@ class QuizCreatorApp:
 
     def clear_image(self, option_key):
         self.option_image_paths[option_key].set("")
-        self.option_image_labels[option_key].confic(text="")
+        self.option_image_labels[option_key].config(text="")
 
 
 if __name__ == "__main__":
