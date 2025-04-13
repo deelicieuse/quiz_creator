@@ -79,7 +79,6 @@ class QuizCreatorApp:
         exit_button.pack(side="left", padx=10)
 
     def save_question(self):
-
         question_text = self.question_entry.get().strip()
         if not question_text:
             messagebox.showerror("Error", "Question cannot be empty!")
@@ -87,7 +86,7 @@ class QuizCreatorApp:
 
         options_dict = {}
         for key in self.option_keys:
-            option_text = self.option_entries[key].get.strip()
+            option_text = self.option_entries[key].get().strip()
             if not option_text:
                 messagebox.showerror("Error", f"Option {key.upper()} text cannot be empty!")
                 return
@@ -107,7 +106,6 @@ class QuizCreatorApp:
             "answer": self.correct_answer_variable.get()
         }
 
-        messagebox.showinfo("Question Data", f"Created question data:\n{single_question_data}")
 
         file_path = filedialog.asksaveasfilename(
             title="Save Quiz File",
