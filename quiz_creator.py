@@ -53,6 +53,9 @@ class QuizCreatorApp:
     def upload_image(self, option_key):
         pass
 
+    def clear_image(self, option_key):
+        pass
+
 
 if __name__ == "__main__":
     main_window = tk.Tk()
