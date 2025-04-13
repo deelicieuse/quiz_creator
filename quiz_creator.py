@@ -56,6 +56,24 @@ class QuizCreatorApp:
         correct_dropdown = tk.OptionMenu(main_frame, self.correct_answer_variable, *self.option_keys)
         correct_dropdown.grid(row=2, column=1, sticky="w", padx=5, pady=10)
 
+        button_frame = tk.Frame(main_frame)
+        button_frame.grid(row=3, column=0, columnspan=4, pady=15)
+
+        save_button = tk.Button(button_frame, text="Save Question", command=self.save_question)
+        save_button.pack(side="left", padx=10)
+
+        clear_form_button = tk.Button(button_frame, text="Clear Form", command=self.clear_form)
+        clear_form_button.pack(side="left", padx=10)
+
+        exit_button = tk.Button(button_frame, text="Exit", command=self.root_window.quit)
+        exit_button.pack(side="left", padx=10)
+
+    def save_question(self):
+        pass
+
+    def clear_form(self):
+        pass
+
 
     def upload_image(self, option_key):
         pass
