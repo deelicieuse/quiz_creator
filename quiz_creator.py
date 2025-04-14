@@ -17,6 +17,7 @@ class QuizCreatorApp:
         self.option_keys = ["a", "b", "c", "d"]
         self.questions_list = []
 
+
         self.create_widgets()
 
     def create_widgets(self):
@@ -146,7 +147,7 @@ class QuizCreatorApp:
 
         self.questions_count_label = tk.Label(
             main_frame,
-            text="Questions in current quiz: 0",
+            text=f"Questions in current quiz: {len(self.questions_list)}",
             font=("Helvetica", 10),
             bg="#f0f4f8"
         )
@@ -220,7 +221,7 @@ class QuizCreatorApp:
 
             messagebox.showinfo("Success", f"Question saved successfully to\n{file_path}")
             self.questions_list = []
-            self.clear_form()
+            self.update_questions_count()
 
         except Exception as error:
             messagebox.showerror("Save Error", f"An error occured while saving: \n{error}")
@@ -254,8 +255,12 @@ class QuizCreatorApp:
         self.option_image_labels[option_key].config(text="")
 
     def update_questions_count(self):
-        if hasattr(self, 'question_count_label'):
-            self.question_count_label.config(text=f"Questions in current quiz: {len(self.questions_list)}")
+        if hasattr(self, 'questions_count_label'):
+            try:
+                question_count = len(self.questions_list)
+                self.questions_count_label.config(text=f"Questions in current quiz: {len(self.questions_list)}")
+            except Exception as e:
+                print(f"Error in update_questions_count: {e}")
 
 if __name__ == "__main__":
     main_window = tk.Tk()
