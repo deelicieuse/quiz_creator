@@ -136,6 +136,14 @@ class QuizCreatorApp:
         )
         exit_button.pack(side="left", padx=10)
 
+        self.questions_count_label = tk.Label(
+            main_frame,
+            text="Questions in current quiz: 0",
+            font=("Helvetica", 10),
+            bg="#f0f4f8"
+        )
+        self.questions_count_label.grid(row=4, column=0, columnspan=4, pady=5)
+
     def save_question(self):
 
         question_text = self.question_entry.get().strip()
