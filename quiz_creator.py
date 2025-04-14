@@ -120,6 +120,14 @@ class QuizCreatorApp:
         )
         add_question_button.pack(side="left", padx=10)
 
+        export_button = tk.Button(
+            button_frame,
+            text="Export Quiz",
+            command=self.save_all_questions,
+            font=("Helvetica", 10)
+        )
+        export_button.pack(side="left", padx=10)
+
         clear_form_button = tk.Button(
             button_frame,
             text="Clear Form",
