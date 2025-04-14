@@ -112,13 +112,13 @@ class QuizCreatorApp:
         button_frame = tk.Frame(main_frame, bg="#f0f4f8")
         button_frame.grid(row=3, column=0, columnspan=4, pady=15)
 
-        save_button = tk.Button(
+        add_question_button = tk.Button(
             button_frame,
             text="Save Question",
             command=self.save_question,
             font=("Helvetica", 10)
         )
-        save_button.pack(side="left", padx=10)
+        add_question_button.pack(side="left", padx=10)
 
         clear_form_button = tk.Button(
             button_frame,
