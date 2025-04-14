@@ -19,25 +19,44 @@ class QuizCreatorApp:
         self.create_widgets()
 
     def create_widgets(self):
-        main_frame = tk.Frame(self.root_window, padx=10, pady=10, bg="#f0f4f8")
+        main_frame = tk.Frame(
+            self.root_window,
+            padx=10,
+            pady=10,
+            bg="#f0f4f8")
         main_frame.grid(row=0, column=0)
 
-        question_label = tk.Label(main_frame, text="Enter your question:",
-                                  font=("Helvetica", 12, "bold"), bg="#f0f4f8")
+        question_label = tk.Label(
+            main_frame,
+            text="Enter your question:",
+            font=("Helvetica", 12, "bold"),
+            bg="#f0f4f8"
+        )
         question_label.grid(row=0, column=0, sticky="w", padx=5, pady=5)
 
         self.question_entry = tk.Entry(main_frame, width=60)
         self.question_entry.grid(row=0, column=1, columnspan=3, sticky="w", padx=5, pady=5)
 
-        options_frame = tk.LabelFrame(main_frame, text="Options", padx=10, pady=10,
-                                      borderwidth=2, relief="groove",
-                                      font=("Helvetica", 11, "bold"), bg="#f0f4f8")
+        options_frame = tk.LabelFrame(
+            main_frame,
+            text="Options",
+            padx=10,
+            pady=10,
+            borderwidth=2,
+            relief="groove",
+            font=("Helvetica", 11, "bold"),
+            bg="#f0f4f8"
+        )
         options_frame.grid(row=1, column=0, columnspan=4, padx=5, pady=15)
         options_frame.configure(bg="#f0f4f8")
 
         for index, option_key in enumerate(self.option_keys):
-            option_label = tk.Label(options_frame, text=f"Option {option_key.upper()} Text:",
-                                    font=("Helvetica", 10), bg="#f0f4f8")
+            option_label = tk.Label(
+                options_frame,
+                text=f"Option {option_key.upper()} Text:",
+                font=("Helvetica", 10),
+                bg="#f0f4f8"
+            )
             option_label.grid(row=index, column=0, sticky="w", padx=5, pady=5)
 
             option_entry = tk.Entry(options_frame, width=40, font=("Helvetica", 10))
@@ -47,8 +66,13 @@ class QuizCreatorApp:
             image_path = tk.StringVar()
             self.option_image_paths[option_key] = image_path
 
-            image_label = tk.Label(options_frame, textvariable=image_path, fg="grey",
-                                   wraplength=150, bg="#f0f4f8")
+            image_label = tk.Label(
+                options_frame,
+                textvariable=image_path,
+                fg="grey",
+                wraplength=150,
+                bg="#f0f4f8"
+            )
             image_label.grid(row=index, column=2, sticky="w", padx=5, pady=5)
             self.option_image_labels[option_key] = image_label
 
@@ -56,37 +80,59 @@ class QuizCreatorApp:
                 options_frame,
                 text="Upload Image",
                 command=lambda key=option_key: self.upload_image(key),
-                font=("Helvetica", 10))
+                font=("Helvetica", 10)
+            )
             upload_button.grid(row=index, column=3, padx=5, pady=5)
 
             clear_button = tk.Button(
                 options_frame,
                 text="Clear",
                 command=lambda key=option_key: self.clear_image(key),
-                font=("Helvetica", 10))
+                font=("Helvetica", 10)
+            )
             clear_button.grid(row=index, column=4, padx=5, pady=5)
 
-        correct_label = tk.Label(main_frame, text="Correct Answer:",
-                                 font=("Helvetica", 12), bg="#f0f4f8")
+        correct_label = tk.Label(
+            main_frame,
+            text="Correct Answer:",
+            font=("Helvetica", 12),
+            bg="#f0f4f8"
+        )
         correct_label.grid(row=2, column=0, sticky="w", padx=5, pady=10)
 
-        correct_dropdown = tk.OptionMenu(main_frame, self.correct_answer_variable, *self.option_keys)
+        correct_dropdown = tk.OptionMenu(
+            main_frame,
+            self.correct_answer_variable,
+            *self.option_keys
+        )
         correct_dropdown.config(font=("Helvetica", 10))
         correct_dropdown.grid(row=2, column=1, sticky="w", padx=5, pady=10)
 
         button_frame = tk.Frame(main_frame, bg="#f0f4f8")
         button_frame.grid(row=3, column=0, columnspan=4, pady=15)
 
-        save_button = tk.Button(button_frame, text="Save Question", command=self.save_question,
-                                font=("Helvetica", 10))
+        save_button = tk.Button(
+            button_frame,
+            text="Save Question",
+            command=self.save_question,
+            font=("Helvetica", 10)
+        )
         save_button.pack(side="left", padx=10)
 
-        clear_form_button = tk.Button(button_frame, text="Clear Form", command=self.clear_form,
-                                      font=("Helvetica", 10))
+        clear_form_button = tk.Button(
+            button_frame,
+            text="Clear Form",
+            command=self.clear_form,
+            font=("Helvetica", 10)
+        )
         clear_form_button.pack(side="left", padx=10)
 
-        exit_button = tk.Button(button_frame, text="Exit", command=self.root_window.quit,
-                                font=("Helvetica", 10))
+        exit_button = tk.Button(
+            button_frame,
+            text="Exit",
+            command=self.root_window.quit,
+            font=("Helvetica", 10)
+        )
         exit_button.pack(side="left", padx=10)
 
     def save_question(self):
