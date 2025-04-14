@@ -193,8 +193,22 @@ class QuizCreatorApp:
             return
 
         try:
+            if os.path.exists(file_path):
+                with open(file_path, "r", encoding="utf-8") as file:
+                    try:
+                        existing_question = json.load(file)
+                        if not isinstance(existing_question, list):
+                            raise ValueError("Existing file does not contain a list")
+                        combined_questions = existing_questions + self.questions_list
+                    except json.JSONDecodeError:
+                        combined_questions = []
+            else:
+                combined_questions = []
+
+            combined_questions = self.questions_list
+
             with open(file_path, "w", encoding="utf-8") as file:
-                json.dump(questions_list, file, indent=4)
+                json.dump(combined_questions, file, indent=4)
 
             messagebox.showinfo("Success", f"Question saved successfully to\n{file_path}")
             self.questions_list = []
