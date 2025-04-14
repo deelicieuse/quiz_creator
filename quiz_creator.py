@@ -229,6 +229,9 @@ class QuizCreatorApp:
         self.option_image_paths[option_key].set("")
         self.option_image_labels[option_key].config(text="")
 
+    def update_questions_count(self):
+        if hasattr(self, 'question_count_label'):
+            self.question_count_label.config(text=f"Questions in current quiz: {len(self.questions_list)}")
 
 if __name__ == "__main__":
     main_window = tk.Tk()
