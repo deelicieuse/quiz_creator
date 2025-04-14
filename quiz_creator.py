@@ -178,6 +178,31 @@ class QuizCreatorApp:
         messagebox.showinfo("Sucesss", "Question added to quiz!")
         self.clear_form()
 
+    def save_all_questions(self):
+        if not self.questions_list:
+            messagebox.showinfo("Info", "No questions to save!")
+
+        file_path = filedialog.asksaveasfilename(
+            title="Save Quiz File",
+            defaultextension=".json",
+            filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")],
+            initialfile="quiz_data.json"
+        )
+
+        if not file_path:
+            return
+
+        try:
+            with open(file_path, "w", encoding="utf-8") as file:
+                json.dump(questions_list, file, indent=4)
+
+            messagebox.showinfo("Success", f"Question saved successfully to\n{file_path}")
+            self.questions_list = []
+            self.clear_form()
+
+        except Exception as error:
+            messagebox.showerror("Save Error", f"An error occured while saving: \n{error}")
+
     def clear_form(self):
         self.question_entry.delete(0, tk.END)
         for key in self.option_keys:
