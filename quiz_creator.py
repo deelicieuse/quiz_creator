@@ -15,6 +15,7 @@ class QuizCreatorApp:
         self.option_image_labels = {}
         self.correct_answer_variable = tk.StringVar(value="a")
         self.option_keys = ["a", "b", "c", "d"]
+        self.questions_list = []
 
         self.create_widgets()
 
