@@ -173,41 +173,10 @@ class QuizCreatorApp:
             "answer": self.correct_answer_variable.get()
         }
 
-        file_path = filedialog.asksaveasfilename(
-            title="Save Quiz File",
-            defaultextension=".json",
-            filetypes=[("JSON Files", "*.json"), ("All Files", "*.*")],
-            initialfile="quiz_data.json"
-        )
-
-        if not file_path:
-            return
-
-        try:
-            if os.path.exists(file_path):
-                with open(file_path, "r", encoding="utf-8") as file:
-                    try:
-                        questions_list = json.load(file)
-                        if not isinstance(questions_list, list):
-                            raise ValueError("Existing file does not contain a list")
-                    except json.JSONDecodeError:
-                        questions_list = []
-            else:
-                questions_list = []
-
-            questions_list.append(single_question_data)
-
-            with open(file_path, "w", encoding="utf-8") as file:
-                json.dump(questions_list, file, indent=4)
-
-            messagebox.showinfo("Success", f"Question saved successfully to\n{file_path}")
-            self.clear_form()
-
-        except Exception as error:
-            messagebox.showerror("Save Error", f"An error occured while saving: \n{error}")
-
-        messagebox.showinfo("File Selected", f"Selected path: {file_path}")
-
+        self.questions_list.append(single_question_data)
+        self.update_questions_count()
+        messagebox.showinfo("Sucesss", "Question added to quiz!")
+        self.clear_form()
 
     def clear_form(self):
         self.question_entry.delete(0, tk.END)
