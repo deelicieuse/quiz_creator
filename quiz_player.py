@@ -135,7 +135,7 @@ class QuizPlayer:
     def finish_quiz(self):
         message = f"Score: {self.score}/{len(self.questions)}"
         if self.lives <= 0:
-            message = "Game Over!\n" + msg
+            message = "Game Over!\n" + message
         again = messagebox.askyesno("Done", msg + "\nPlay again?")
         if again:
             self.score = 0
@@ -143,7 +143,7 @@ class QuizPlayer:
             self.asked_indices.clear()
             self.switch_frame(self.file_selection_frame)
         else:
-            self.root.quiz()
+            self.root.quit()
 
     def run(self):
         self.root.mainloop()
