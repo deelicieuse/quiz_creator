@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
+import json
 
 
 class QuizPlayer:
@@ -7,6 +8,7 @@ class QuizPlayer:
         self.root = tk.Tk()
         self.root.title("Quiz Player")
         self.build_ui()
+        self.questions= []
 
     def switch_frame(self, frame):
         for child in self.root.winfo_children():
@@ -38,6 +40,9 @@ class QuizPlayer:
     def choose_file(self):
         fp = filedialog.askopenfilename(filetypes=[("JSON", "*.json"), ("All", "*.*")])
         print("Selected file:", fp)
+        with open(fp, 'r') as f:
+            self.questions = json.load(f)
+        print("Loaded queations:", self.questions)
 
 
     def run(self):
