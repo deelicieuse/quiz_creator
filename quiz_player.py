@@ -11,6 +11,9 @@ class QuizPlayer:
         self.root.title("Quiz Player")
         self.build_ui()
         self.questions= []
+        self.score = 0
+        self.lives = 3
+        self.asked_indices = set()
 
     def switch_frame(self, frame):
         for child in self.root.winfo_children():
@@ -74,12 +77,16 @@ class QuizPlayer:
         self.show_next_question()
 
     def show_next_question(self):
-        idx = random.randrange(len(self.questions))
+        while True:
+            idx = random.randrange(len(self.questions))
+            if idx not in self.asked_indices:
+                break
         self.current_index = idx
         self.current_question = self.questions[idx]
         self.questions_label.config(text=self.current_question["question"])
         for key, btn in self.answer_buttons.items():
             btn.config(text=f"{key.upper()}: {self.current_question['options'][key]['text']}")
+
 
     def _answer(self, selected_option):
         if selected_option == self.current_question["answer"]:
@@ -87,6 +94,11 @@ class QuizPlayer:
         else:
             messagebox.showerror("X", f"Answer: {self.current_question['answer'].upper()}")
         self.show_next_question()
+        if selected_option == self.current_question["answer"]:
+            self.score += 1
+            self.asked_indices.add(self.current_index)
+        else:
+            self.lives -= 1
 
 
 
