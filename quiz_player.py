@@ -36,8 +36,6 @@ class QuizPlayer:
             for child in w.winfo_children():
                 self._recolor(child)
 
-
-
     def build_ui(self):
 
         self.intro_frame = tk.Frame(self.root)
@@ -72,10 +70,11 @@ class QuizPlayer:
             self.quiz_frame,
             wraplength=500,
             font=("Courier", 12)
+        )
 
         self.header_label = tk.Label(self.quiz_frame, font=("Courier", 12))
         self.header_label.pack(pady=5)
-                                        )
+
         self.questions_label.pack(pady=10)
         self.answer_buttons = {}
         for key in "abcd":
@@ -92,6 +91,7 @@ class QuizPlayer:
         for child in self.root.winfo_children():
             child.pack_forget()
         frame.pack(fill="both", expand=True)
+        self.apply_theme()
 
     def choose_file(self):
         fp = filedialog.askopenfilename(filetypes=[("JSON", "*.json"), ("All", "*.*")])
