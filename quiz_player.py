@@ -17,6 +17,7 @@ class QuizPlayer:
         self.window_bg = "#ffe0f0"
         self.text_fg = "#8c176a"
         self.button_bg = "#ffb3e6"
+        self.apply_theme()
 
     def apply_theme(self):
         self.root.config(bg=self.window_bg)
@@ -55,7 +56,7 @@ class QuizPlayer:
         self.file_selection_frame = tk.Frame(self.root)
         tk.Label(
             self.file_selection_frame,
-            text="Select Quiz JSON File",
+            text="Select JSON Quiz File",
             font=("Courier", 14)
         ).pack(pady=10)
         tk.Button(
@@ -71,6 +72,9 @@ class QuizPlayer:
             wraplength=500,
             font=("Courier", 12)
         )
+
+        self.lives_label = tk.Label(self.quiz_frame, font=("Courier", 12))
+        self.lives_label.pack(pady=0)
 
         self.header_label = tk.Label(self.quiz_frame, font=("Courier", 12))
         self.header_label.pack(pady=5)
@@ -103,6 +107,7 @@ class QuizPlayer:
         self.show_next_question()
 
     def update_header(self):
+        self.lives_label.config(text="♥ " * self.lives)
         self.header_label.config(text=f" Score: {self.score}/{len(self.questions)}")
 
     def show_next_question(self):
@@ -126,7 +131,7 @@ class QuizPlayer:
         if selected_option == self.current_question["answer"]:
             messagebox.showinfo("✓", "Correct!")
         else:
-            messagebox.showerror("X", f"Answer: {self.current_question['answer'].upper()}")
+            messagebox.showerror("X", "Wrong answer! Try again!")
         if selected_option == self.current_question["answer"]:
             self.score += 1
             self.asked_indices.add(self.current_index)
@@ -140,8 +145,8 @@ class QuizPlayer:
     def finish_quiz(self):
         message = f"Score: {self.score}/{len(self.questions)}"
         if self.lives <= 0:
-            message = "Game Over!\n" + message
-        again = messagebox.askyesno("Done", message + "\nPlay again?")
+            message = f"Game Over!\nAnswer was: {self.current_question['answer'].upper()}\n" + message
+        again = messagebox.askyesno("Done", message + "\nPlay again? (You can select a different JSON Quiz)")
         if again:
             self.score = 0
             self. lives = 3
