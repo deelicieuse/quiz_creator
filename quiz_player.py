@@ -67,6 +67,8 @@ class QuizPlayer:
         with open(fp, 'r') as f:
             self.questions = json.load(f)
         print("Loaded queations:", self.questions)
+        self.switch_frame(self.quiz_frame)
+        self.show_next_question()
 
     def show_next_question(self):
         idx = random.randrange(len(self.questions))
