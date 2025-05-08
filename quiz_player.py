@@ -14,6 +14,27 @@ class QuizPlayer:
         self.score = 0
         self.lives = 3
         self.asked_indices = set()
+        self.window_bg = "#ffe0f0"
+        self.text_fg = "#8c176a"
+        self.button_bg = "#ffb3e6"
+
+    def apply_theme(self):
+        self.root.config(bg=self.window_bg)
+        for w in self.root. winfo_children():
+            self.recolor(w)
+
+    def _recolor(self, w):
+        w.config(bg=self.window_bg)
+        if isinstance(w, (tk.Label, tk.Button)):
+            w.config(fg=self.text_fg)
+        if isinstance(w, tk.Button):
+            w.conig(
+                active_background=self.text_fg,
+                active_foreground=self.window_bg
+            )
+        if hasattr(w, "winfo_children"):
+            for chilf in w.winfo_children():
+                self._recolor(child)
 
     def switch_frame(self, frame):
         for child in self.root.winfo_children():
@@ -76,7 +97,7 @@ class QuizPlayer:
         self.switch_frame(self.quiz_frame)
         self.show_next_question()
 
-    def update_header(self)
+    def update_header(self):
         self.header_label.config(text=f"{self.player_name}  | Score: {self.score}/{len(self.questions)}")
 
     def show_next_question(self):
@@ -118,8 +139,6 @@ class QuizPlayer:
             self.switch_frame(self.file_selection_frame)
         else:
             self.root.quiz()
-
-
 
     def run(self):
         self.root.mainloop()
