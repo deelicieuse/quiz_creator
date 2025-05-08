@@ -21,14 +21,14 @@ class QuizPlayer:
     def apply_theme(self):
         self.root.config(bg=self.window_bg)
         for w in self.root. winfo_children():
-            self.recolor(w)
+            self._recolor(w)
 
     def _recolor(self, w):
         w.config(bg=self.window_bg)
         if isinstance(w, (tk.Label, tk.Button)):
             w.config(fg=self.text_fg)
         if isinstance(w, tk.Button):
-            w.conig(
+            w.config(
                 activebackground=self.text_fg,
                 activeforeground=self.window_bg
             )
@@ -48,7 +48,7 @@ class QuizPlayer:
             self.intro_frame,
             text="LET'S START",
             font=("Courier", 14),
-            command=lambda: self.switch_frame(self.intro_frame)
+            command=lambda: self.switch_frame(self.file_selection_frame)
         ).pack()
         self.intro_frame.pack(fill="both", expand=True)
 
@@ -103,7 +103,7 @@ class QuizPlayer:
         self.show_next_question()
 
     def update_header(self):
-        self.header_label.config(text=f"{self.player_name}  | Score: {self.score}/{len(self.questions)}")
+        self.header_label.config(text=f" Score: {self.score}/{len(self.questions)}")
 
     def show_next_question(self):
         if len(self.asked_indices) >= len(self.questions) or self.lives <= 0:
@@ -119,24 +119,29 @@ class QuizPlayer:
         for key, btn in self.answer_buttons.items():
             btn.config(text=f"{key.upper()}: {self.current_question['options'][key]['text']}")
 
+        self.update_header()
+
 
     def _answer(self, selected_option):
         if selected_option == self.current_question["answer"]:
             messagebox.showinfo("✓", "Correct!")
         else:
             messagebox.showerror("X", f"Answer: {self.current_question['answer'].upper()}")
-        self.show_next_question()
         if selected_option == self.current_question["answer"]:
             self.score += 1
             self.asked_indices.add(self.current_index)
         else:
             self.lives -= 1
 
+        self.update_header()
+        self.show_next_question()
+
+
     def finish_quiz(self):
         message = f"Score: {self.score}/{len(self.questions)}"
         if self.lives <= 0:
             message = "Game Over!\n" + message
-        again = messagebox.askyesno("Done", msg + "\nPlay again?")
+        again = messagebox.askyesno("Done", message + "\nPlay again?")
         if again:
             self.score = 0
             self. lives = 3
@@ -144,6 +149,8 @@ class QuizPlayer:
             self.switch_frame(self.file_selection_frame)
         else:
             self.root.quit()
+
+
 
     def run(self):
         self.root.mainloop()
