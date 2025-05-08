@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 import json
 import random
+
 
 
 class QuizPlayer:
@@ -46,9 +47,10 @@ class QuizPlayer:
         ).pack()
 
         self.quiz_frame = tk.Frame(self.root, padx=20, pady=20)
-        self.questions_label = tk.Label(self.quiz_frame,
-                                        wraplength=500,
-                                        font=("Courier", 12)
+        self.questions_label = tk.Label(
+            self.quiz_frame,
+            wraplength=500,
+            font=("Courier", 12)
                                         )
         self.questions_label.pack(pady=10)
         self.answer_buttons = {}
@@ -56,7 +58,8 @@ class QuizPlayer:
             btn = tk.Button(
             self.quiz_frame,
             width=40,
-            font=("Courier", 12)
+            font=("Courier", 12),
+            command=lambda o=key: self._answer(o)
             )
             btn.pack(pady=3)
             self.answer_buttons[key] = btn
@@ -76,7 +79,15 @@ class QuizPlayer:
         self.current_question = self.questions[idx]
         self.questions_label.config(text=self.current_question["question"])
         for key, btn in self.answer_buttons.items():
-            btn.config(textf"{key.upper()}": {self.current_question['options'][key]['text']})
+            btn.config(text=f"{key.upper()}: {self.current_question['options'][key]['text']}")
+
+    def _answer(self, selected_option):
+        if selected_option == self.current_question["answer"]:
+            messagebox.showinfo("✓", "Correct!")
+        else:
+            messagebox.showerror("X", f"Answer: {self.current_question['answer'].upper()}")
+        self.show_next_question()
+
 
 
 
