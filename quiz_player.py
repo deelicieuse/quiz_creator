@@ -76,7 +76,13 @@ class QuizPlayer:
         self.switch_frame(self.quiz_frame)
         self.show_next_question()
 
+    def update_header(self)
+        self.header_label.config(text=f"{self.player_name}  | Score: {self.score}/{len(self.questions)}")
+
     def show_next_question(self):
+        if len(self.asked_indices) >= len(self.questions) or self.lives <= 0:
+            self.finish_quiz()
+            return
         while True:
             idx = random.randrange(len(self.questions))
             if idx not in self.asked_indices:
@@ -100,6 +106,18 @@ class QuizPlayer:
         else:
             self.lives -= 1
 
+    def finish_quiz(self):
+        message = f"Score: {self.score}/{len(self.questions)}"
+        if self.lives <= 0:
+            message = "Game Over!\n" + msg
+        again = messagebox.askyesno("Done", msg + "\nPlay again?")
+        if again:
+            self.score = 0
+            self. lives = 3
+            self.asked_indices.clear()
+            self.switch_frame(self.file_selection_frame)
+        else:
+            self.root.quiz()
 
 
 
