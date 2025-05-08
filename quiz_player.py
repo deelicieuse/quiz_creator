@@ -1,6 +1,5 @@
 import tkinter as tk
-from struct import pack_into
-from traceback import format_tb
+from tkinter import filedialog
 
 
 class QuizPlayer:
@@ -10,8 +9,8 @@ class QuizPlayer:
         self.build_ui()
 
     def switch_frame(self, frame):
-        for ch in self.root.winfo_ch():
-            ch.pack_forget()
+        for child in self.root.winfo_children():
+            child.pack_forget()
         frame.pack(fill="both", expand=True)
 
 
@@ -24,7 +23,7 @@ class QuizPlayer:
         tk.Button(self.intro_frame,
                   text="LET'S START",
                   font=("Courier", 14),
-                  command=lambda: self.switch_frame(self.intro_frame)).pack()
+                  command=lambda:self.switch_frame(self.intro_frame)).pack()
         self.intro_frame.pack(fill="both", expand=True)
 
         self.file_selection_frame = tk.Frame(self.root)
@@ -33,7 +32,13 @@ class QuizPlayer:
                  font=("Courier", 14)).pack(pady=10)
         tk.Button(self.file_selection_frame,
                   text="Browse...",
-                  font=("Courier", 12)).pack()
+                  font=("Courier", 12),
+                  command=self.choose_file).pack()
+
+    def choose_file(self):
+        fp = filedialog.askopenfilename(filetypes=[("JSON", "*.json"), ("All", "*.*")])
+        print("Selected file:", fp)
+
 
     def run(self):
         self.root.mainloop()
