@@ -72,6 +72,9 @@ class QuizPlayer:
             self.quiz_frame,
             wraplength=500,
             font=("Courier", 12)
+
+        self.header_label = tk.Label(self.quiz_frame, font=("Courier", 12))
+        self.header_label.pack(pady=5)
                                         )
         self.questions_label.pack(pady=10)
         self.answer_buttons = {}
