@@ -29,17 +29,14 @@ class QuizPlayer:
             w.config(fg=self.text_fg)
         if isinstance(w, tk.Button):
             w.conig(
-                active_background=self.text_fg,
-                active_foreground=self.window_bg
+                activebackground=self.text_fg,
+                activeforeground=self.window_bg
             )
         if hasattr(w, "winfo_children"):
-            for chilf in w.winfo_children():
+            for child in w.winfo_children():
                 self._recolor(child)
 
-    def switch_frame(self, frame):
-        for child in self.root.winfo_children():
-            child.pack_forget()
-        frame.pack(fill="both", expand=True)
+
 
     def build_ui(self):
 
@@ -53,7 +50,7 @@ class QuizPlayer:
             self.intro_frame,
             text="LET'S START",
             font=("Courier", 14),
-            command=lambda:self.switch_frame(self.intro_frame)
+            command=lambda: self.switch_frame(self.intro_frame)
         ).pack()
         self.intro_frame.pack(fill="both", expand=True)
 
@@ -87,6 +84,11 @@ class QuizPlayer:
             )
             btn.pack(pady=3)
             self.answer_buttons[key] = btn
+
+    def switch_frame(self, frame):
+        for child in self.root.winfo_children():
+            child.pack_forget()
+        frame.pack(fill="both", expand=True)
 
     def choose_file(self):
         fp = filedialog.askopenfilename(filetypes=[("JSON", "*.json"), ("All", "*.*")])
