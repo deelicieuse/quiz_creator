@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 import json
+import random
 
 
 class QuizPlayer:
@@ -14,7 +15,6 @@ class QuizPlayer:
         for child in self.root.winfo_children():
             child.pack_forget()
         frame.pack(fill="both", expand=True)
-
 
     def build_ui(self):
 
@@ -67,6 +67,15 @@ class QuizPlayer:
         with open(fp, 'r') as f:
             self.questions = json.load(f)
         print("Loaded queations:", self.questions)
+
+    def show_next_question(self):
+        idx = random.randrange(len(self.questions))
+        self.current_index = idx
+        self.current_question = self.questions[idx]
+        self.questions_label.config(text=self.current_question["question"])
+        for key, btn in self.answer_buttons.items():
+            btn.config(textf"{key.upper()}": {self.current_question['options'][key]['text']})
+
 
 
     def run(self):
